@@ -5,7 +5,7 @@ const goalController = require("../controllers/goalController");
 // testing
 router.get("/", goalController.demo);
 
-//get Goal
+//get all Goals
 router.get("/getGoals", goalController.getGoals);
 
 //set goal
