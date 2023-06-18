@@ -15,6 +15,6 @@ router.post("/setGoal", goalController.setGoal);
 router.put("/updateGoal/:id", goalController.updateGoal);
 
 //delete goal
-router.delete("/deleteGoal/:id", goalController.deleteGoal);
+router.post("/deleteGoal/:id", goalController.deleteGoal);
 
 module.exports = router;

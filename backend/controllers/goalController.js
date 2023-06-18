@@ -3,7 +3,7 @@ const {
   failResponse,
   errorResponse,
 } = require("../utills/responses");
-
+const mongoose = require("mongoose");
 const Goal = require("../models/goalModel");
 
 exports.test = async (req, res) => {
@@ -80,7 +80,25 @@ exports.updateGoal = async (req, res) => {
 // delete goal by Id
 exports.deleteGoal = async (req, res) => {
   try {
-    return successResponse(req, res, "deleteGoal");
+    const goalId = req.params.id;
+
+    // Check if goalId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(goalId)) {
+      return failResponse(req, res, "Invalid Goal ID");
+    }
+
+    const goal = await Goal.findById(goalId);
+
+    if (!goal) {
+      return failResponse(req, res, "Goal not found");
+    }
+
+    // Update isActive and isDeleted fields
+    goal.isActive = false;
+    goal.isDeleted = true;
+    const updatedGoal = await goal.save();
+
+    return successResponse(req, res, updatedGoal);
   } catch (error) {
     return errorResponse(req, res, error);
   }
