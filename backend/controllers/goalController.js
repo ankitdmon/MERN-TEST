@@ -6,6 +6,7 @@ const {
 const mongoose = require("mongoose");
 const Goal = require("../models/goalModel");
 
+// just for testing
 exports.test = async (req, res) => {
   try {
     return successResponse(req, res, "message");
@@ -90,7 +91,7 @@ exports.deleteGoal = async (req, res) => {
     const goal = await Goal.findById(goalId);
 
     if (!goal) {
-      return failResponse(req, res, "Goal not found");
+      return failResponse(req, res, "There is no such Goal with this Id!");
     }
 
     // Update isActive and isDeleted fields
