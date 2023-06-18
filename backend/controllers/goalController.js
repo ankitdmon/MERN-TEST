@@ -4,6 +4,8 @@ const {
   errorResponse,
 } = require("../utills/responses");
 
+const goal = require("../models/goalModel");
+
 exports.test = async (req, res) => {
   try {
     return successResponse(req, res, "message");
@@ -15,16 +17,25 @@ exports.test = async (req, res) => {
 // get all goals
 exports.getGoals = async (req, res) => {
   try {
-    return successResponse(req, res, "getGoals");
+    const goals = await goal.find();
+    return successResponse(req, res, goals);
   } catch (error) {
     return errorResponse(req, res, error);
   }
 };
 
-// set goal
+// create goal
 exports.setGoal = async (req, res) => {
   try {
-    return successResponse(req, res, "setGoal");
+    const goalData = {
+      goal: req.body.goal,
+      description: req.body.description,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    };
+
+    const goalText = await goal.create(goalData);
+    return successResponse(req, res, goalText);
   } catch (error) {
     return errorResponse(req, res, error);
   }
