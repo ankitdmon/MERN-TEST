@@ -17,7 +17,7 @@ exports.test = async (req, res) => {
 // get all goals
 exports.getGoals = async (req, res) => {
   try {
-    const goals = await goal.find();
+    const goals = await goal.find({ isActive: true, isDeleted: false });
     return successResponse(req, res, goals);
   } catch (error) {
     return errorResponse(req, res, error);
