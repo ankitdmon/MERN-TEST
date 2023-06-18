@@ -15,7 +15,7 @@ exports.demo = async (req, res) => {
 // get all goals
 exports.getGoals = async (req, res) => {
   try {
-    successResponse(req, res, "getGoals");
+    return successResponse(req, res, "getGoals");
   } catch (error) {
     return errorResponse(req, res, error);
   }
@@ -24,7 +24,7 @@ exports.getGoals = async (req, res) => {
 // set goal
 exports.setGoal = async (req, res) => {
   try {
-    successResponse(req, res, "setGoal");
+    return successResponse(req, res, "setGoal");
   } catch (error) {
     return errorResponse(req, res, error);
   }
@@ -33,7 +33,7 @@ exports.setGoal = async (req, res) => {
 // update goal by Id
 exports.updateGoal = async (req, res) => {
   try {
-    successResponse(req, res, "updateGoal");
+    return successResponse(req, res, "updateGoal");
   } catch (error) {
     return errorResponse(req, res, error);
   }
@@ -42,7 +42,7 @@ exports.updateGoal = async (req, res) => {
 // delete goal by Id
 exports.deleteGoal = async (req, res) => {
   try {
-    successResponse(req, res, "deleteGoal");
+    return successResponse(req, res, deleteGoal);
   } catch (error) {
     return errorResponse(req, res, error);
   }
