@@ -3,7 +3,7 @@ const router = express.Router();
 const goalController = require("../controllers/goalController");
 
 // testing
-router.get("/", goalController.demo);
+router.get("/test", goalController.test);
 
 //get all Goals
 router.get("/getGoals", goalController.getGoals);

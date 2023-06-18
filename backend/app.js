@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const goalRoute = require("./routes/goalRoute");
-const { response } = require("./utills/responses");
+const response  = require("./utills/responses");
 
 const PORT = process.env.PORT || 5001;
 
@@ -13,7 +13,7 @@ app.use("/api", goalRoute);
 
 // Custom error handling middleware
 app.use((err, req, res, next) => {
-  response(req, res, err.message, err.key);
+  response(req, res, true, false, err.key, errorDesc, err.message );
 });
 
 app.listen(PORT, (req, res) => {

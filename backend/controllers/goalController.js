@@ -4,7 +4,7 @@ const {
   errorResponse,
 } = require("../utills/responses");
 
-exports.demo = async (req, res) => {
+exports.test = async (req, res) => {
   try {
     return successResponse(req, res, "message");
   } catch (error) {
@@ -42,7 +42,7 @@ exports.updateGoal = async (req, res) => {
 // delete goal by Id
 exports.deleteGoal = async (req, res) => {
   try {
-    return successResponse(req, res, deleteGoal);
+    return successResponse(req, res, "deleteGoal");
   } catch (error) {
     return errorResponse(req, res, error);
   }
