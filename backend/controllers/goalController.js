@@ -4,7 +4,7 @@ const {
   errorResponse,
 } = require("../utills/responses");
 
-const goal = require("../models/goalModel");
+const Goal = require("../models/goalModel");
 
 exports.test = async (req, res) => {
   try {
@@ -17,7 +17,7 @@ exports.test = async (req, res) => {
 // get all goals
 exports.getGoals = async (req, res) => {
   try {
-    const goals = await goal.find({ isActive: true, isDeleted: false });
+    const goals = await Goal.find({ isActive: true, isDeleted: false });
     return successResponse(req, res, goals);
   } catch (error) {
     return errorResponse(req, res, error);
@@ -34,7 +34,7 @@ exports.setGoal = async (req, res) => {
       updatedAt: Date.now(),
     };
 
-    const goalText = await goal.create(goalData);
+    const goalText = await Goal.create(goalData);
     return successResponse(req, res, goalText);
   } catch (error) {
     return errorResponse(req, res, error);
@@ -44,7 +44,34 @@ exports.setGoal = async (req, res) => {
 // update goal by Id
 exports.updateGoal = async (req, res) => {
   try {
-    return successResponse(req, res, "updateGoal");
+    const goalId = req.params.id;
+    const { goal, description } = req.body;
+
+    const updatedFields = {};
+
+    if (goal) {
+      updatedFields.goal = goal;
+    }
+
+    if (description) {
+      updatedFields.description = description;
+    }
+
+    if (Object.keys(updatedFields).length === 0) {
+      return failResponse(req, res, "No fields to update provided");
+    }
+
+    updatedFields.updatedAt = Date.now();
+
+    const updatedGoal = await Goal.findByIdAndUpdate(goalId, updatedFields, {
+      new: true,
+    });
+
+    if (!updatedGoal) {
+      return failResponse(req, res, "There is no such Goal with this Id!");
+    }
+
+    return successResponse(req, res, updatedGoal);
   } catch (error) {
     return errorResponse(req, res, error);
   }
